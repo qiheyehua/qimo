@@ -1,0 +1,481 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>期末加油｜祝你不挂科</title>
+  <style>
+    :root{
+      --bg1:#0ea5e9;
+      --bg2:#a855f7;
+      --bg3:#22c55e;
+      --card: rgba(255,255,255,.10);
+      --card2: rgba(255,255,255,.06);
+      --text: rgba(255,255,255,.95);
+      --muted: rgba(255,255,255,.72);
+      --shadow: 0 18px 60px rgba(0,0,0,.28);
+      --radius: 22px;
+      --font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", Arial, sans-serif;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: var(--font);
+      color: var(--text);
+      overflow-x:hidden;
+      background:
+        radial-gradient(1200px 700px at 20% 15%, rgba(255,255,255,.16), transparent 65%),
+        radial-gradient(900px 600px at 80% 30%, rgba(255,255,255,.10), transparent 60%),
+        linear-gradient(120deg, var(--bg1), var(--bg2) 55%, var(--bg3));
+      background-size: 200% 200%;
+      animation: bgMove 12s ease-in-out infinite;
+    }
+
+    @keyframes bgMove{
+      0%{background-position: 0% 50%}
+      50%{background-position: 100% 50%}
+      100%{background-position: 0% 50%}
+    }
+
+    .noise{
+      pointer-events:none;
+      position:fixed;
+      inset:0;
+      opacity:.06;
+      background-image:
+        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/></filter><rect width="240" height="240" filter="url(%23n)" opacity="0.35"/></svg>');
+      mix-blend-mode: overlay;
+      z-index:1;
+    }
+
+    .wrap{
+      min-height:100%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding: 40px 16px 70px;
+      position:relative;
+      z-index:2;
+    }
+
+    .container{
+      width: min(980px, 100%);
+      display:flex;
+      justify-content:center;
+    }
+
+    .card{
+      background: linear-gradient(180deg, var(--card), var(--card2));
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      overflow:hidden;
+      position:relative;
+    }
+
+    .card::before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background:
+        radial-gradient(520px 240px at 20% 10%, rgba(255,255,255,.22), transparent 60%),
+        radial-gradient(520px 240px at 85% 0%, rgba(255,255,255,.15), transparent 62%),
+        radial-gradient(700px 320px at 40% 110%, rgba(0,0,0,.22), transparent 55%);
+      opacity:.9;
+      pointer-events:none;
+    }
+
+    .card > *{position:relative; z-index:1;}
+
+    .hero{
+      padding: 28px 28px 24px;
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.24);
+      background: rgba(255,255,255,.10);
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .badge .dot{
+      width:10px;
+      height:10px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.85);
+      box-shadow: 0 0 0 6px rgba(255,255,255,.10);
+      animation: pulse 1.8s ease-in-out infinite;
+    }
+
+    @keyframes pulse{
+      0%,100%{transform:scale(1); opacity:.9}
+      50%{transform:scale(1.15); opacity:.55}
+    }
+
+    h1{
+      margin: 14px 0 8px;
+      font-size: clamp(28px, 3.8vw, 44px);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+    }
+
+    .sub{
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.7;
+      max-width: 56ch;
+    }
+
+    .typing{
+      margin-top: 16px;
+      padding: 14px 14px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(0,0,0,.10);
+      min-height: 78px;
+      display:flex;
+      align-items:center;
+    }
+
+    .typingText{
+      font-size: 16px;
+      line-height: 1.65;
+      color: rgba(255,255,255,.92);
+      white-space: pre-wrap;
+    }
+
+    .cursor{
+      display:inline-block;
+      width: 10px;
+      margin-left: 4px;
+      border-bottom: 2px solid rgba(255,255,255,.85);
+      transform: translateY(-2px);
+      animation: blink .9s infinite;
+    }
+
+    @keyframes blink{ 0%,49%{opacity:1} 50%,100%{opacity:0} }
+
+    .actions{
+      margin-top: 16px;
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    button{
+      appearance:none;
+      border: 0;
+      cursor:pointer;
+      padding: 11px 14px;
+      border-radius: 14px;
+      font-weight: 650;
+      letter-spacing: .01em;
+      color: rgba(255,255,255,.95);
+      background: rgba(0,0,0,.16);
+      border: 1px solid rgba(255,255,255,.22);
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      user-select:none;
+    }
+
+    button:hover{transform: translateY(-1px); background: rgba(0,0,0,.22); border-color: rgba(255,255,255,.28);}
+    button:active{transform: translateY(0px);}
+
+    .primary{
+      background: linear-gradient(135deg, rgba(255,255,255,.22), rgba(255,255,255,.10));
+      border-color: rgba(255,255,255,.35);
+    }
+
+    .primary:hover{background: linear-gradient(135deg, rgba(255,255,255,.28), rgba(255,255,255,.12));}
+
+
+    .toast{
+      position: fixed;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%) translateY(16px);
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.22);
+      background: rgba(0,0,0,.22);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .18s ease, transform .18s ease;
+      z-index: 5;
+      font-size: 13px;
+      color: rgba(255,255,255,.92);
+    }
+
+    .toast.show{opacity:1; transform: translateX(-50%) translateY(0px);}
+
+    canvas#confetti{
+      position: fixed;
+      inset: 0;
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    .floating{
+      position: fixed;
+      inset:0;
+      z-index: 0;
+      overflow:hidden;
+      pointer-events:none;
+    }
+
+    .bubble{
+      position:absolute;
+      width: 240px;
+      height: 240px;
+      border-radius: 50%;
+      filter: blur(0px);
+      opacity:.16;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.9), rgba(255,255,255,0) 65%);
+      animation: floatUp 18s linear infinite;
+    }
+
+    .bubble:nth-child(1){left:-60px; top:70%; transform: scale(.9); animation-duration: 20s;}
+    .bubble:nth-child(2){left:70%; top:75%; transform: scale(1.2); animation-duration: 22s;}
+    .bubble:nth-child(3){left:35%; top:85%; transform: scale(.75); animation-duration: 19s;}
+
+    @keyframes floatUp{
+      0%{transform: translateY(0) scale(var(--s,1));}
+      100%{transform: translateY(-110vh) scale(var(--s,1));}
+    }
+
+    .footer{
+      margin-top: 10px;
+      color: rgba(255,255,255,.62);
+      font-size: 12px;
+    }
+
+    .mini{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.14);
+      border: 1px solid rgba(255,255,255,.18);
+      font-size: 12px;
+      color: rgba(255,255,255,.82);
+    }
+
+    .chip b{font-weight: 750;}
+  </style>
+</head>
+<body>
+  <div class="floating" aria-hidden="true">
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+  </div>
+  <div class="noise" aria-hidden="true"></div>
+  <canvas id="confetti"></canvas>
+
+  <div class="wrap">
+    <div class="container">
+
+      <section class="card hero">
+        <div class="badge"><span class="dot"></span><span id="badgeText">期末加油！给你一份好运加成</span></div>
+        <h1>
+          <span id="titleName">朋友</span>，期末别慌。
+          <br />
+          这次一定稳稳拿下。
+        </h1>
+        <div class="mini" id="miniChips">
+          <div class="chip"><b>目标</b>：不挂科</div>
+          <div class="chip"><b>结果</b>：高分飘过</div>
+          <div class="chip"><b>状态</b>：心态稳定</div>
+        </div>
+
+        <p class="sub" id="subtitle">
+          祝你：不挂科、全会写、分都对、手不抖。老师改卷心情好，题题都是你会的。
+        </p>
+
+        <div class="typing" aria-live="polite">
+          <div class="typingText"><span id="typingText"></span><span class="cursor"></span></div>
+        </div>
+
+        <div class="actions">
+          <button class="primary" id="btnCelebrate">接不接</button>
+          <button id="btnRandom">换一句祝福</button>
+        </div>
+
+       
+      </section>
+
+
+    </div>
+  </div>
+
+  <div class="toast" id="toast">已复制</div>
+
+  <script>
+    const defaultName = '朋友';
+    const defaultSubtitle = '祝你：不挂科、全会写、分都对、手不抖。老师改卷心情好，题题都是你会的。';
+
+    const wishes = [
+      '期末好运加载中…加载完成：你会的全考，考的全会。',
+      '愿你考试：选择题蒙的都对，填空题写的都准，大题步骤全给分。',
+      '愿你遇到的每一道题，都是你昨晚复习过的那一页。',
+      '不挂科只是底线，高分才是你应得的奖励。',
+      '老师改卷看到你：这份卷子看着就顺眼——分数自然就高。',
+      '愿你心态稳，手速快，灵感来，分数涨。',
+      '这次期末：发挥超常，运气爆棚，成绩好到自己都笑。'
+    ];
+
+    const $ = (id) => document.getElementById(id);
+
+    const titleName = $('titleName');
+    const subtitle = $('subtitle');
+    const toast = $('toast');
+
+    const typingText = $('typingText');
+
+    function showToast(text){
+      toast.textContent = text;
+      toast.classList.add('show');
+      clearTimeout(showToast._t);
+      showToast._t = setTimeout(() => toast.classList.remove('show'), 1400);
+    }
+
+    function setName(name){
+      const safe = (name || '').trim() || defaultName;
+      titleName.textContent = safe;
+      document.title = `期末加油｜${safe}不挂科拿高分`;
+    }
+
+    function setSubtitle(text){
+      subtitle.textContent = (text || '').trim() || defaultSubtitle;
+    }
+
+    // ---- 打字机效果 ----
+    let typingTimer = null;
+    function typewrite(text){
+      clearInterval(typingTimer);
+      typingText.textContent = '';
+      const s = String(text || '');
+      let i = 0;
+      typingTimer = setInterval(() => {
+        typingText.textContent += s[i] || '';
+        i++;
+        if(i >= s.length){
+          clearInterval(typingTimer);
+        }
+      }, 26);
+    }
+
+    function pickRandomWish(){
+      return wishes[Math.floor(Math.random() * wishes.length)];
+    }
+
+    // ---- Confetti ----
+    const canvas = $('confetti');
+    const ctx = canvas.getContext('2d');
+
+    function resize(){
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    const colors = ['#ffffff', '#fde047', '#fb7185', '#60a5fa', '#34d399', '#a78bfa'];
+
+    function burstConfetti(durationMs = 1600){
+      const W = canvas.width, H = canvas.height;
+      const pieces = [];
+      const count = Math.min(180, Math.floor(W / 6));
+
+      for(let i=0;i<count;i++){
+        pieces.push({
+          x: Math.random() * W,
+          y: -20 - Math.random() * H * 0.2,
+          r: 4 + Math.random() * 6,
+          a: Math.random() * Math.PI * 2,
+          vx: (Math.random() - 0.5) * 7,
+          vy: 2 + Math.random() * 6,
+          va: (Math.random() - 0.5) * 0.2,
+          color: colors[(Math.random() * colors.length) | 0],
+          shape: Math.random() < 0.45 ? 'rect' : 'circle'
+        });
+      }
+
+      const start = performance.now();
+      function frame(t){
+        const elapsed = t - start;
+        ctx.clearRect(0,0,W,H);
+
+        for(const p of pieces){
+          p.x += p.vx;
+          p.y += p.vy;
+          p.a += p.va;
+          p.vy += 0.04; // gravity
+
+          ctx.save();
+          ctx.translate(p.x, p.y);
+          ctx.rotate(p.a);
+          ctx.fillStyle = p.color;
+
+          if(p.shape === 'rect'){
+            ctx.fillRect(-p.r, -p.r/1.6, p.r*2, p.r*1.2);
+          }else{
+            ctx.beginPath();
+            ctx.arc(0,0, p.r*0.9, 0, Math.PI*2);
+            ctx.fill();
+          }
+          ctx.restore();
+        }
+
+        if(elapsed < durationMs){
+          requestAnimationFrame(frame);
+        }else{
+          ctx.clearRect(0,0,W,H);
+        }
+      }
+      requestAnimationFrame(frame);
+    }
+
+    // ---- 交互 ----
+    $('btnCelebrate').addEventListener('click', () => {
+      burstConfetti();
+      const w = (subtitle.textContent.trim() || defaultSubtitle);
+      typewrite(w);
+    });
+
+
+    $('btnRandom').addEventListener('click', () => {
+      const w = pickRandomWish();
+      setSubtitle(w);
+      typewrite(w);
+      burstConfetti(900);
+    });
+
+
+    // 初始
+    setName(defaultName);
+    setSubtitle(defaultSubtitle);
+    typewrite(pickRandomWish());
+  </script>
+</body>
+</html>
+
